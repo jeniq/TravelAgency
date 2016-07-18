@@ -6,6 +6,6 @@
 			username = "root"
 			password = "root"
 			driverClassName = "com.mysql.jdbc.Driver"
-			url = "jdbc:mysql://localhost:3306/travel_agency?autoReconnect=true">
+			url = "jdbc:mysql://localhost:3306/travel_db?autoReconnect=true">
 	</Resource>
 </Context>
