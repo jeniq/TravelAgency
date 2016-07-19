@@ -13,9 +13,13 @@ public class Tour {
 	private TourType type;
 	private int price;
 	private boolean isHot = false;
+	private String startDate;
+	private String endDate;
 
-	public Tour(String name, boolean isHot, int price, TourType type) {
+	public Tour(String name, String startDate, String endDate, boolean isHot, int price, TourType type) {
 		this.name = name;
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.isHot = isHot;
 		this.type = type;
 		this.price = price;
@@ -41,11 +45,28 @@ public class Tour {
 		this.isHot = isHot;
 	}
 
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
 	@Override
 	public String toString(){
 		return "Tour " +
 				name + 
-				"[Type: " + type + 
+				"[Type: " + type +
+				"; date:" + startDate + " - " + endDate +
 				"; hot tour: " + isHot +
 				"; price: " + price + "]"; 
 	}
