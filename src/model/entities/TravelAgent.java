@@ -1,9 +1,9 @@
 package model.entities;
 
 /**
- * This class implements tour agent of tour agency.
- * Agent has name, id. It has permission set tour like "hot tour",
- * set discounts for customers.
+ * This class implements tour agent of travel agency. Agent has id, name,
+ * surname. It has permission set tour like "hot tour", set discounts for
+ * customers.
  * 
  * @author Yevhen Hryshchenko
  * @version 16 Jule 2016
@@ -15,7 +15,8 @@ public class TravelAgent {
 	private String surname;
 
 	// Constructor
-	public TravelAgent(String name, String surname) {
+	public TravelAgent(int id, String name, String surname) {
+		this.id = id;
 		this.name = name;
 		this.surname = surname;
 	}
@@ -35,7 +36,8 @@ public class TravelAgent {
 	@Override
 	public String toString(){
 		return "Travel agent " 
-				+ name +
-				" " + surname;
+				+ name + " " 
+				+ surname;
 	}
+	
 }

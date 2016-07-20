@@ -1,73 +1,83 @@
 package model.entities;
 
 /**
- * This class implements tour of tour agency. It contains name of tour, type and
- * price.
+ * This class implements tour of travel agency. It contains id, name of tour,
+ * type and price. Tour has start date and expiration date. Also tour can be hot
+ * - it means some discount for this one.
  * 
  * @author Yevhen Hryshchenko
  * @version 16 Jule 2016
  *
  */
 public class Tour {
+	private int id;
 	private String name;
-	private TourType type;
-	private int price;
 	private boolean isHot = false;
+	private int discount;
+	private int price;
+	private TourType type;
 	private String startDate;
 	private String endDate;
 
-	public Tour(String name, String startDate, String endDate, boolean isHot, int price, TourType type) {
+	// Constructor
+	public Tour(int id, String name, boolean isHot, int discount, int price, TourType type, String startDate,
+			String endDate) {
+		this.id = id;
 		this.name = name;
+		this.isHot = isHot;
+		this.discount = discount;
+		this.price = price;
+		this.type = type;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.isHot = isHot;
-		this.type = type;
-		this.price = price;
 	}
 
-	public TourType getType() {
-		return type;
+	public int getId() {
+		return id;
 	}
-
-	public int getPrice() {
-		return price;
+	
+	public void setId(int id) {
+		this.id = id;
 	}
-
-	public void setPrice(int price) {
-		this.price = price;
+	
+	public String getName() {
+		return name;
 	}
 	
 	public boolean isHot() {
 		return isHot;
 	}
 
-	public void setHot(boolean isHot) {
-		this.isHot = isHot;
+	public int getDiscount() {
+		return discount;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public TourType getType() {
+		return type;
 	}
 
 	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-
 	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-
 	@Override
 	public String toString(){
-		return "Tour " +
-				name + 
-				"[Type: " + type +
-				"; date:" + startDate + " - " + endDate +
-				"; hot tour: " + isHot +
-				"; price: " + price + "]"; 
+		return "Tour " 
+				+ name 
+				+ "[Type: " + type 
+				+ "; date:" + startDate 
+				+ " - " + endDate 
+				+ "; hot tour: " + isHot 
+				+ "; discount: " + discount
+				+ "; price: " + price + "]"; 
 	}
+	
 }
