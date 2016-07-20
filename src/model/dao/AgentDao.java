@@ -1,6 +1,6 @@
 package model.dao;
 
-import sun.management.Agent;
+import model.entities.TravelAgent;
 
-public interface AgentDao extends GenericDao<Agent>{
+public interface AgentDao extends GenericDao<TravelAgent> {
 }
