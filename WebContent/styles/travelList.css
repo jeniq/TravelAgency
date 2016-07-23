@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+
+body, table{
+	text-align: center;
+	margin: auto;
+}
+
+table{
+	border-spacing: 0;
+}
+
+#header{
+	font-size: 10pt;
+	text-align:right;
+	padding: 3px;
+	background: #D3D3D3;
+}
+
+th{
+	font-size: 18pt;
+	font-family: sans-serif;
+}
+
+label{
+	float:left;
+}
+
+.travelPrice{
+	margin-left: 100px;
+}
+
+input[type="submit"]{
+	margin-left: 50px;
+}
+
+tr:hover{
+	background: #D3D3D3;	
+}
+

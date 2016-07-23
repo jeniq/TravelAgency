@@ -1,0 +1,31 @@
+@CHARSET "UTF-8";
+
+body{
+	text-align: center;
+}
+
+div.loginForm {
+	border: thin solid black;
+	height: 120px;
+	width: 300px;
+	background: lightgray;
+	padding-top: 2px;
+	padding-bottom: 5px;
+	margin: auto;
+}
+
+form p{
+	text-align:left;
+	margin-left: 20px;
+}
+
+#login, #password{
+	float: right;
+	margin-right: 50px;
+}
+
+#language{
+	margin-top: 0;
+	text-align: right;
+	font-size: 10pt;
+}
