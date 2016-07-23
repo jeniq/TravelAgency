@@ -9,35 +9,25 @@ package model.entities;
  * @version 16 Jule 2016
  *
  */
-public class Customer {
+public class Customer extends User{
 	private int id;
-	private String name;
-	private String surname;
 	private int discount;
 
 	// Constructor
-	public Customer(int id, String name, String surname, int discount) {
-		this.id = id;
-		this.name = name;
-		this.surname = surname;
+	public Customer(String name, String surname, int discount) {
+		super(name, surname);
 		this.discount = discount;
 	}
-
+	
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	@Override
 	public int getId() {
 		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
+	}	
 
 	public int getDiscount() {
 		return discount;

@@ -20,9 +20,8 @@ public class Tour {
 	private String endDate;
 
 	// Constructor
-	public Tour(int id, String name, boolean isHot, int discount, int price, TourType type, String startDate,
+	public Tour(String name, boolean isHot, int discount, int price, TourType type, String startDate,
 			String endDate) {
-		this.id = id;
 		this.name = name;
 		this.isHot = isHot;
 		this.discount = discount;

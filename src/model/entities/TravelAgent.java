@@ -9,32 +9,22 @@ package model.entities;
  * @version 16 Jule 2016
  *
  */
-public class TravelAgent {
+public class TravelAgent extends User{
 	private int id;
-	private String name;
-	private String surname;
 
 	// Constructor
-	public TravelAgent(int id, String name, String surname) {
-		this.id = id;
-		this.name = name;
-		this.surname = surname;
+	public TravelAgent(String name, String surname) {
+		super(name, surname);
 	}
 
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	@Override
 	public int getId() {
 		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getSurname() {
-		return surname;
 	}
 
 	@Override

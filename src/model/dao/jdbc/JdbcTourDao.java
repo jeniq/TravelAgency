@@ -8,6 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import log.LogMessageConstants;
 import model.dao.TourDao;
 import model.entities.Tour;
 import model.entities.TourType;
@@ -22,49 +25,50 @@ import model.entities.TourType;
  *
  */
 public class JdbcTourDao implements TourDao {
-
+	
 	@Override
-	public void create(Tour e) {
+	public void create(Tour tour) {
 		try (Connection cn = JdbcDaoFactory.getConnection();
 				PreparedStatement query = cn.prepareStatement("INSERT INTO travels VALUES (?, ?, ?, ?, ?, ?)",
 						Statement.RETURN_GENERATED_KEYS)) {
-			query.setString(1, e.getName());
-			query.setBoolean(2, e.isHot());
-			query.setInt(3, e.getDiscount());
-			query.setInt(4, e.getPrice());
-			query.setString(5, e.getType().toString());
-			query.setString(6, e.getStartDate());
-			query.setString(7, e.getEndDate());
+			query.setString(1, tour.getName());
+			query.setBoolean(2, tour.isHot());
+			query.setInt(3, tour.getDiscount());
+			query.setInt(4, tour.getPrice());
+			query.setString(5, tour.getType().toString());
+			query.setString(6, tour.getStartDate());
+			query.setString(7, tour.getEndDate());
 			query.executeUpdate();
 			ResultSet rs = query.getGeneratedKeys();
 			if (rs.next()) {
 				int id = rs.getInt(1);
-				e.setId(id);
+				tour.setId(id);
 			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		} catch (SQLException e) {
+			Logger.getLogger(JdbcTourDao.class.getName()).error(LogMessageConstants.ERROR_CREATING_TRAVEL, e);
+			throw new RuntimeException();
 		}
 
 	}
 
 	@Override
-	public boolean update(Tour e) {
+	public boolean update(Tour tour) {
 		try (Connection cn = JdbcDaoFactory.getConnection();
 				PreparedStatement query = cn.prepareStatement(
 						"UPDATE travels set t_name=?, t_is_hot=?, t_discount = ?, t_price=?, t_type=?, t_start=?, t_end=?"
-								+ "where id=?")) {
-			query.setString(1, e.getName());
-			query.setBoolean(2, e.isHot());
-			query.setInt(3, e.getDiscount());
-			query.setInt(4, e.getPrice());
-			query.setString(5, e.getType().toString());
-			query.setString(6, e.getStartDate());
-			query.setString(7, e.getEndDate());
-			query.setInt(8, e.getId());
+								+ "where t_id=?")) {
+			query.setString(1, tour.getName());
+			query.setBoolean(2, tour.isHot());
+			query.setInt(3, tour.getDiscount());
+			query.setInt(4, tour.getPrice());
+			query.setString(5, tour.getType().toString());
+			query.setString(6, tour.getStartDate());
+			query.setString(7, tour.getEndDate());
+			query.setInt(8, tour.getId());
 			query.executeUpdate();
 			return true;
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		} catch (SQLException e) {
+			Logger.getLogger(JdbcTourDao.class.getName()).error(LogMessageConstants.ERROR_UPDATING_TRAVEL, e);
 		}
 		return false;
 	}
@@ -72,12 +76,12 @@ public class JdbcTourDao implements TourDao {
 	@Override
 	public boolean delete(int id) {
 		try (Connection cn = JdbcDaoFactory.getConnection();
-				PreparedStatement query = cn.prepareStatement("DELETE from travels where id = ?")) {
+				PreparedStatement query = cn.prepareStatement("DELETE from travels where t_id = ?")) {
 			query.setInt(1, id);
 			query.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logger.getLogger(JdbcTourDao.class.getName()).error(LogMessageConstants.ERROR_DELETING_TRAVEL_ID + id, e);
 		}
 		return false;
 	}
@@ -85,23 +89,23 @@ public class JdbcTourDao implements TourDao {
 	@Override
 	public Tour find(int id) {
 		try (Connection cn = JdbcDaoFactory.getConnection();
-				PreparedStatement query = cn.prepareStatement("SELECT * from travels where id = ?")) {
+				PreparedStatement query = cn.prepareStatement("SELECT * from travels where t_id = ?")) {
 			query.setInt(1, id);
 			ResultSet rs = query.executeQuery();
 			if (rs.next()) {
-				Tour tour = new Tour(rs.getInt(1), // t_id
-						rs.getString(2), // t_name
+				Tour tour = new Tour(rs.getString(2), // t_name
 						rs.getBoolean(3), // t_isHot
 						rs.getInt(4), // t_discount
 						rs.getInt(5), // t_price
 						TourType.valueOf(rs.getString(6).toUpperCase()), // t_type
 						rs.getString(7), // t_start
-						rs.getString(8)); // t_end
+						rs.getString(8));
+				tour.setId(rs.getInt(1));
 				return tour;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.getLogger(JdbcTourDao.class.getName()).error(LogMessageConstants.ERROR_SEARCHING_TRAVEL_ID, e);
+			throw new RuntimeException();
 		}
 		return null;
 	}
@@ -113,20 +117,20 @@ public class JdbcTourDao implements TourDao {
 			ResultSet rs = query.executeQuery("SELECT * from travels");
 			List<Tour> tours = new ArrayList<>();
 			while (rs.next()) {
-				tours.add(new Tour(rs.getInt(1), // t_id
-						rs.getString(2), // t_name
+				Tour tour = new Tour(rs.getString(2), // t_name
 						rs.getBoolean(3), // t_isHot
 						rs.getInt(4), // t_discount
 						rs.getInt(5), // t_price
 						TourType.valueOf(rs.getString(6).toUpperCase()), // t_type
 						rs.getString(7), // t_start
-						rs.getString(8))); // t_end
+						rs.getString(8));
+				tour.setId(rs.getInt(1));
+				tours.add(tour);
 			}
 			query.close();
 			return tours;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.getLogger(JdbcTourDao.class.getName()).error(LogMessageConstants.ERROR_SEARCHING_TRAVEL_LIST, e);
 			throw new RuntimeException();
 		}
 	}
