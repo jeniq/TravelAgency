@@ -4,7 +4,7 @@ package controller.commands;
  * This enumaration class contains list of commands.
  * 
  * @author Yevhen Hryshchenko
- * @version 22 Jule 2016
+ * @version 24 Jule 2016
  * 
  */
 public enum CommandList {
@@ -15,7 +15,10 @@ public enum CommandList {
 	PAY_TOUR(new PayTourCommand()), 
 	BOOK_TOUR(new BookTravelCommand()),
 	SET_LOCALE(new SetLocaleCommand()),
-	USER_ORDERS(new UserOrdersCommand());
+	USER_ORDERS(new UserOrdersCommand()),
+	SET_HOT(new SetHotTourCommand()),
+	FIND_ALL_CUSTOMERS(new CustomerListCommand()),
+	SET_USER_DISCOUNT(new SetUserDiscount());
 
 	private Command command;
 
