@@ -21,4 +21,10 @@ public class TourService {
 		TourDao tourDao = factory.createTourDao();
 		return tourDao.find(id);
 	}
+	
+	public boolean setHotTravel(int id, boolean isHot, int discount){
+		DaoFactory factory = DaoFactory.getInstance();
+		TourDao tourDao = factory.createTourDao();
+		return tourDao.setHot(id, isHot, discount);
+	}
 }

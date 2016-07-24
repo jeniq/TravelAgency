@@ -27,7 +27,7 @@ public class AuthenticationService {
 		CustomerDao customerDao = factory.createCustomerDao();
 		TravelAgent agent;
 		Customer customer;
-
+		
 		if ((agent = agentDao.findAccount(login, password.hashCode())) != null) {
 			return agent;
 		}
@@ -37,9 +37,4 @@ public class AuthenticationService {
 		return null;
 	}
 
-	public Customer findCustomer(int id) {
-		CustomerDao customer = factory.createCustomerDao();
-
-		return customer.find(id);
-	}
 }
