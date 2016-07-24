@@ -7,9 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.entities.Customer;
 import model.entities.Order;
-import model.entities.Tour;
 import model.services.OrderService;
 
 /**
@@ -26,10 +24,9 @@ public class BookTravelCommand implements Command {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
-		Customer customer = (Customer) session.getAttribute(CommandConstants.CUSTOMER);
-		Tour tour = (Tour) session.getAttribute(CommandConstants.TRAVEL);
-
-		Order order = new Order(customer.getId(), tour.getId(), false); 
+		Order order = (Order) session.getAttribute(CommandConstants.ORDER);
+		
+		order.setAgent(orderService.selectAgent(order));
 		orderService.bookTravel(order);
 		session.setAttribute(CommandConstants.ORDER, order);
 		

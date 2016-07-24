@@ -23,11 +23,10 @@ public class TourListCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
+			throws ServletException, IOException {		
+		HttpSession session = request.getSession();
 		List<Tour> result = tourService.getAll();
-		session.setAttribute(CommandConstants.ORDER_STATUS, null);
-		request.setAttribute(CommandConstants.TRAVELS_LIST, result);
+		session.setAttribute(CommandConstants.TRAVELS_LIST, result);
 
 		return CommandConstants.TRAVEL_LIST_PAGE;
 	}

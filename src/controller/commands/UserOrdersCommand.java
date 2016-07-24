@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import model.entities.Customer;
 import model.entities.Order;
+import model.entities.User;
 import model.services.OrderService;
 
 /**
@@ -26,8 +27,8 @@ public class UserOrdersCommand implements Command{
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
-		Customer customer = (Customer) session.getAttribute(CommandConstants.CUSTOMER);
-		List<Order> orders = orderService.getAll(customer.getId());
+		User user = (Customer) session.getAttribute(CommandConstants.USER);
+		List<Order> orders = orderService.getAll(user.getId());
 		
 		request.setAttribute(CommandConstants.ORDER_LIST, orders);
 
