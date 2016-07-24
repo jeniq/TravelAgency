@@ -43,7 +43,7 @@ public class Tour {
 		return name;
 	}
 	
-	public boolean isHot() {
+	public boolean getIsHot() {
 		return isHot;
 	}
 

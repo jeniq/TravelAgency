@@ -10,21 +10,10 @@ package model.entities;
  *
  */
 public class TravelAgent extends User{
-	private int id;
 
 	// Constructor
 	public TravelAgent(String name, String surname) {
 		super(name, surname);
-	}
-
-	@Override
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	@Override
-	public int getId() {
-		return id;
 	}
 
 	@Override

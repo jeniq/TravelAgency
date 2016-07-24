@@ -1,15 +1,22 @@
 package model.entities;
 
-public abstract class User {
-	abstract void setId(int id);
-	abstract int getId();
-	
+public class User {
 	protected String name;
 	protected String surname;
+	protected int id;
+	private String permissions;
 	
 	public User(String name, String surname) {
 		this.name = name;
 		this.surname = surname;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
 	}
 	
 	public String getName() {
@@ -23,16 +30,20 @@ public abstract class User {
 	/**
 	 * This method defines permissions for user.
 	 * @param user 
-	 * @return name of permission
+	 * @return type of permission
 	 */
-	public String getPermission(User user){
+	public String setPermissions(User user){
 		if (user == null){
 			return null;
 		}
 		if (user instanceof TravelAgent){
-			return "agent";
+			return permissions = "agent";
 		}else{
-			return "user";
+			return permissions = "user";
 		}
+	}
+	
+	public String getPermissions(){
+		return permissions;
 	}
 }

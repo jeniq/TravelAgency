@@ -10,7 +10,6 @@ package model.entities;
  *
  */
 public class Customer extends User{
-	private int id;
 	private int discount;
 
 	// Constructor
@@ -18,16 +17,6 @@ public class Customer extends User{
 		super(name, surname);
 		this.discount = discount;
 	}
-	
-	@Override
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	@Override
-	public int getId() {
-		return id;
-	}	
 
 	public int getDiscount() {
 		return discount;
