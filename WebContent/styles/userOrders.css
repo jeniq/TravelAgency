@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+
+table{
+	margin:auto;
+	border-spacing: 0;
+}
+
+td label{
+	margin-left: 30px;
+}
+
+tr:hover{
+	background: #D3D3D3;	
+}
+

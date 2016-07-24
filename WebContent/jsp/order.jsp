@@ -14,8 +14,15 @@
 		<p>${travel.getName() }</p>
 		<p>travel id: ${travel.getId() }</p>
 		<p>Date: ${travel.getStartDate() } - ${travel.getEndDate() }</p>
-		<p>Price: ${travel.getPrice() }</p>
 		<p>Travel type: ${ travel.getType() }</p>
+		<p>Price: ${travel.getPrice() }</p>
+		<c:if test = "${travel.getIsHot() }">
+			<p>Travel discount: ${travel.getDiscount() }%</p>
+		</c:if>
+		<c:if test = "${user.getDiscount() gt '0' }">
+			<p>Your discount: ${user.getDiscount() }%</p>
+		</c:if>
+		<p>Total: ${order.getFinalPrice() }</p>
 		<p>
 			Payment status:
 			<c:if test="${order.getIsPaid()}">paid</c:if>
@@ -28,13 +35,13 @@
 				<a href="./Controller?command=BOOK_TOUR">Book</a>
 			</c:if>
 		</p>
-		<p>
-			<c:if test="${order.getTravel() eq travel.getId()  }"> Travel has 
+			<p>
+			<c:if test="${order.getId() ne 0 }"> Travel has 
 				<c:if test="${order.getIsPaid() }">paid</c:if>
 				<c:if test="${not order.getIsPaid() }">booked</c:if>
 		 		succesfull!
 		 	</c:if>
-		</p>
+		</p>  
 	</div>
 </body>
 </html>

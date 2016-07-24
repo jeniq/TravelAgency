@@ -1,12 +1,19 @@
 package controller.commands;
 
+/**
+ * This class contains set of string values for command classes.
+ * 
+ * @author Yevhen Hryshchenko
+ * @version 23 Jule 2016
+ *
+ */
 public interface CommandConstants {
 	String LOGIN = "login";
 	String PASSWORD = "password";
 	String WRONG_DATA = "wrongData";
 	String USER = "user";
 	String PERMISSIONS = "permissions";
-	String TRAVEL_ID = "travelId";
+	String TRAVEL_ID = "travelId"; 
 	String CUSTOMER = "Customer";
 	String TRAVEL = "travel";
 	String ORDER = "order";
@@ -14,6 +21,13 @@ public interface CommandConstants {
 	String TRAVELS_LIST = "list";
 	String LOCALE = "locale";
 	String ORDER_LIST = "orderList";
+	String AGENT = "agent";
+	String TRAVEL_DISCOUNT = "travelDiscount";
+	String SET_HOT = "Set hot";
+	String BUTTON = "button";
+	String CUSTOMERS_LIST = "customerList";
+	String CUSTOMER_ID = "customerId";
+	String CUSTOMER_DISCOUNT = "customerDiscount";
 	
 	// pages
 	String INDEX_PAGE = "/index.jsp";

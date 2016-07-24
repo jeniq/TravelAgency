@@ -14,12 +14,18 @@
 			href="./Controller?command=USER_ORDERS">My orders</a> | <a
 			href="./Controller?command=LOGOUT">Logout</a>
 	</div>
-	<table>
+	<table id = "travels">
 		<c:forEach var="travel" items="${list}">
 			<form action="./Controller">
 				<tr>
+					<c:if test = "${user.getPermissions() eq 'agent' }"><td>${travel.getId() }</td></c:if>
 					<td><input type="hidden" name="command" value="NEW_ORDER" /></td>
-					<td><label>${travel.getName()}</label></td>
+					<td>
+						<c:if test = "${travel.getIsHot() }">
+						<label id = "hotTour">HOT!!!</label> 
+						</c:if> 
+						<label> ${travel.getName()}</label>
+					</td>
 					<td><label class="travelPrice">${travel.getPrice()}</label></td>
 					<td><input type="hidden" name="travelId" value="${travel.getId()}" /></td>
 					<td><input type="submit" value="BUY"></td>
@@ -27,5 +33,50 @@
 			</form>
 		</c:forEach>
 	</table>	
+	
+	<c:if test = "${user.getPermissions() eq 'agent' }">
+		<table id = "adminPanel">
+			<tr>
+				<td></td><td></td>
+				<td><label>Admin panel</label></td>
+				<td></td><td></td>
+			</tr>
+			<tr>
+				<form action="./Controller">
+					<td><label>Travel id:</label></td>
+					<td><input type = "number" name = "travelId"></td>
+					<td><label>discount:</label></td>
+					<td><input type = "number" name = "travelDiscount">%</td>
+					<td>
+						<input type="hidden" name="command" value="SET_HOT" />
+						<input type="submit" name="button" value="Set hot">
+						<input type="submit" name="button" value="Cancel hot">
+					</td>
+				</form>
+			</tr>
+			<tr>
+				<form action="./Controller">
+					<td><label>Customer id:</label></td>
+					<td><input type = "number" name = "customerId"></td>
+					<td><label>discount:</label>
+					<td><input type = "number" name = "customerDiscount">%</td>
+					<td>
+						<input type="hidden" name="command" value="SET_USER_DISCOUNT" />
+						<input type="submit" value="Set discount">
+					</td>
+				</form>
+			</tr>
+		</table>
+		
+		<a href="./Controller?command=FIND_ALL_CUSTOMERS">Customers</a>
+		<c:if test="${customerList ne null}">
+			<p>ID/name/surname/discount</p>
+			<c:forEach var="customer" items="${customerList}">
+				<p>${customer.getId()} ${customer.getName() } ${customer.getSurname() } ${customer.getDiscount() }</p>
+			</c:forEach>
+		</c:if>
+		
+	</c:if>
+	
 </body>
 </html>

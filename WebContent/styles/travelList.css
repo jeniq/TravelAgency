@@ -33,7 +33,18 @@ input[type="submit"]{
 	margin-left: 50px;
 }
 
-tr:hover{
+#travels tr:hover{
 	background: #D3D3D3;	
+}
+
+#hotTour{
+	background-color: yellow;
+	padding-right: 3px;
+	padding-left: 3px;
+}
+
+#adminPanel{
+	border-spacing: 5px;
+	margin-top: 30px;
 }
 
