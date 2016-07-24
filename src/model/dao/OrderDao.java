@@ -9,4 +9,6 @@ public interface OrderDao extends GenericDao<Order>{
 	// This method searches order by customer and travel
 	Order find(int custId, int travId);
 	List<Order> findAll(int id);
+	boolean setPrice(Order order);
+	boolean setAgent(Order order, int id);
 }

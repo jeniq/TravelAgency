@@ -130,4 +130,18 @@ public class JdbcCustomerDao implements CustomerDao{
 		return null;
 	}
 
+	@Override
+	public boolean setDiscount(int id, int discount) {
+		try (Connection cn = JdbcDaoFactory.getConnection();
+				PreparedStatement query = cn.prepareStatement("UPDATE customer set c_discount = ? where c_id= ?")) {
+			query.setInt(1, discount);
+			query.setInt(2, id);
+			query.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			Logger.getLogger(JdbcCustomerDao.class.getName()).error(LogMessageConstants.ERROR_SETTING_DISCOUNT, e);
+		}
+		return false;
+	}
+
 }

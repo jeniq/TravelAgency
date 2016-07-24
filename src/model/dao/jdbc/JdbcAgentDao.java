@@ -114,6 +114,7 @@ public class JdbcAgentDao implements AgentDao {
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcAgentDao.class.getName()).error(LogMessageConstants.ERROR_SEARCHING_AGENT_ACCOUNT, e);
+			throw new RuntimeException();
 		}
 		return null;
 	}

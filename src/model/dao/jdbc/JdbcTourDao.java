@@ -32,7 +32,7 @@ public class JdbcTourDao implements TourDao {
 				PreparedStatement query = cn.prepareStatement("INSERT INTO travels VALUES (?, ?, ?, ?, ?, ?)",
 						Statement.RETURN_GENERATED_KEYS)) {
 			query.setString(1, tour.getName());
-			query.setBoolean(2, tour.isHot());
+			query.setBoolean(2, tour.getIsHot());
 			query.setInt(3, tour.getDiscount());
 			query.setInt(4, tour.getPrice());
 			query.setString(5, tour.getType().toString());
@@ -58,7 +58,7 @@ public class JdbcTourDao implements TourDao {
 						"UPDATE travels set t_name=?, t_is_hot=?, t_discount = ?, t_price=?, t_type=?, t_start=?, t_end=?"
 								+ "where t_id=?")) {
 			query.setString(1, tour.getName());
-			query.setBoolean(2, tour.isHot());
+			query.setBoolean(2, tour.getIsHot());
 			query.setInt(3, tour.getDiscount());
 			query.setInt(4, tour.getPrice());
 			query.setString(5, tour.getType().toString());
@@ -133,5 +133,21 @@ public class JdbcTourDao implements TourDao {
 			Logger.getLogger(JdbcTourDao.class.getName()).error(LogMessageConstants.ERROR_SEARCHING_TRAVEL_LIST, e);
 			throw new RuntimeException();
 		}
+	}
+	
+	@Override
+	public boolean setHot(int id, boolean isHot, int discount) {
+		try (Connection cn = JdbcDaoFactory.getConnection();
+				PreparedStatement query = cn.prepareStatement(
+						"UPDATE travels set t_is_hot=?, t_discount = ? where t_id=?")) {
+			query.setBoolean(1, isHot);
+			query.setInt(2, discount);
+			query.setInt(3, id);
+			query.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			Logger.getLogger(JdbcTourDao.class.getName()).error(LogMessageConstants.ERROR_UPDATING_TRAVEL, e);
+		}
+		return false;
 	}
 }
