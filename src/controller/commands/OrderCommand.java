@@ -13,7 +13,8 @@ import model.entities.User;
 import model.services.TourService;
 
 /**
- * This class shows more information about travel.
+ * This class shows detail information for user about travel. At this page user
+ * can book or buy travel.
  * 
  * @author Yevhen Hryshchenko
  * @version 24 Jule 2016
@@ -29,12 +30,12 @@ public class OrderCommand implements Command {
 		int travId = new Integer(request.getParameter(CommandConstants.TRAVEL_ID));
 		Tour tour = tourService.getTravel(travId);
 		User user = (User) session.getAttribute(CommandConstants.USER);
-		Order order = new Order(user.getId(), tour);
-		
-		order.setPrice(tour, user);
+		Order order = new Order(user, tour);
+
+		order.setPrice(tour, user); // price sets including discounts
 		session.setAttribute(CommandConstants.ORDER, order);
 		session.setAttribute(CommandConstants.TRAVEL, tour);
-		
+
 		return CommandConstants.ORDER_PAGE;
 	}
 

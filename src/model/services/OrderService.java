@@ -5,77 +5,82 @@ import java.util.List;
 import model.dao.AgentDao;
 import model.dao.DaoFactory;
 import model.dao.OrderDao;
-import model.entities.Customer;
 import model.entities.Order;
-import model.entities.Tour;
 import model.entities.TravelAgent;
-import model.entities.User;
 
+/**
+ * This class implements order service. It searches all orders in database,
+ * searches by user's id, sets status for order (booked or paid/unpaid) sets
+ * order's total price, select agent for order.
+ * 
+ * @author Yevhen Hryshchenko
+ * @version 24 Jule 2016
+ */
 public class OrderService {
 	private static OrderService instance = new OrderService();
 	private DaoFactory factory = DaoFactory.getInstance();
-	
-	public static OrderService getInstance(){ return instance; }
-	
-	public List<Order> getAll(){
-		OrderDao orderDao = factory.createOrderDao();
-		return orderDao.findAll();
+
+	public static OrderService getInstance() {
+		return instance;
 	}
 	
-	public List<Order> getAll(int id){
+	// This method returns orders by user id
+	public List<Order> getAll(int id) {
 		OrderDao orderDao = factory.createOrderDao();
 		return orderDao.findAll(id);
 	}
-	
-	public Order payTour(Order o) {
-		o.setPaid(true);
-		return bookTravel(o);
+
+	// This method sets paid status for order
+	public Order payTour(Order order) {
+		if (order != null) {
+			order.setPaid(true);
+			return bookTravel(order);
+		}
+		return null;
 	}
 	
-	public Order bookTravel(Order o){
+	// This method sets booked status for order and add it to database
+	public Order bookTravel(Order order) {
+		if (order == null) {
+			return null;
+		}
 		OrderDao orderDao = factory.createOrderDao();
-		Order order = o;
-		if (orderDao.find(order.getCustomer(), order.gettId()) == null){
+
+		order.setAgent(selectAgent(order));
+		if (orderDao.find(order.getCustomerId(), order.gettId()) == null) {
 			orderDao.create(order);
-		}else{
+		} else {
 			orderDao.update(order);
 		}
 		return order;
 	}
 	
-	public boolean setPrice(Order order, Tour travel, User user){
-		OrderDao orderDao = factory.createOrderDao();
-		int price = travel.getPrice();
-		int discount = 0;
-		// set travel's price including discount
-		if (travel.getDiscount() > 0){
-			discount = travel.getDiscount(); 
-		}else if (((Customer)user).getDiscount() > 0){
-			discount = ((Customer)user).getDiscount();
-		}
-		price = price * (1 - discount/100);
-		
-		return orderDao.setPrice(order);
-	}
-	
+	// This method returns order object by order id 
 	public Order getOrder(int id){
 		OrderDao orderDao = factory.createOrderDao();
 		
 		return orderDao.find(id);
 	}
 	
-	public TravelAgent selectAgent(Order order){
-		if (order.getAgent() != null){
+	// This method sets agent that responsible for travel
+	public TravelAgent selectAgent(Order order) {
+		if (order.getAgent() != null) {
 			return order.getAgent();
 		}
 		AgentDao agentDao = factory.createAgentDao();
 		OrderDao orderDao = factory.createOrderDao();
 		List<TravelAgent> agents = agentDao.findAll();
 		TravelAgent agent;
-		int aNum = (int)(Math.random()*agents.size());
+		int aNum = (int) (Math.random() * agents.size());
 		agent = agents.get(aNum);
 		orderDao.setAgent(order, agent.getId());
-		
+
 		return agent;
+	}
+
+	// This method deletes order from customer's orders list
+	public boolean cancelOrder(int id) {
+		OrderDao orderDao = factory.createOrderDao();
+		return orderDao.delete(id);
 	}
 }

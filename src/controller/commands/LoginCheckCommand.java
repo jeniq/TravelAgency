@@ -30,17 +30,18 @@ public class LoginCheckCommand implements Command {
 		HttpSession session = request.getSession();
 		String login = request.getParameter(CommandConstants.LOGIN);
 		String password = request.getParameter(CommandConstants.PASSWORD);
-		User user = service.checkLogin(login, password); // check user existence in database
+		User user = service.checkLogin(login, password); // check user existence
+															// in database
 
 		if (user == null) {
-			request.setAttribute(CommandConstants.WRONG_DATA, CommandConstants.WRONG_LOGIN_DATA);
+			request.setAttribute(CommandConstants.WRONG_DATA, CommandConstants.TRUE);
 			return CommandConstants.INDEX_PAGE;
 		}
 		session.setAttribute(CommandConstants.USER, user);
 		session.setAttribute(CommandConstants.PERMISSIONS, user.setPermissions(user));
 		Logger.getLogger(LoginCheckCommand.class.getName()).info(LogMessageConstants.USER_LOGIN + login);
 
-		return CommandConstants.FIND_ALL_TOURS_PAGE;
+		return CommandConstants.FIND_ALL_TOURS_COMMAND;
 	}
 
 }

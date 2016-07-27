@@ -34,6 +34,7 @@ public abstract class DaoFactory {
 			return (DaoFactory) Class.forName("model.dao.jdbc.JdbcDaoFactory").newInstance();
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			Logger.getLogger(DaoFactory.class.getName()).error(e);
+			new RuntimeException();
 		}
 		return null;
 	}

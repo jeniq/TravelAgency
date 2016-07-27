@@ -1,14 +1,39 @@
 package model.entities;
 
 public class User {
+	protected int id;
 	protected String name;
 	protected String surname;
-	protected int id;
 	private String permissions;
 	
+	// Constructor
 	public User(String name, String surname) {
 		this.name = name;
 		this.surname = surname;
+	}
+
+	// Constructor
+	public User(int id, String name, String surname) {
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+	}
+	
+	/**
+	 * This method defines permissions for user.
+	 * 
+	 * @param user
+	 * @return type of permission
+	 */
+	public String setPermissions(User user) {
+		if (user == null) {
+			return null;
+		}
+		if (user instanceof TravelAgent) {
+			return permissions = "agent";
+		} else {
+			return permissions = "user";
+		}
 	}
 	
 	public void setId(int id) {
@@ -25,22 +50,6 @@ public class User {
 
 	public String getSurname() {
 		return surname;
-	}
-
-	/**
-	 * This method defines permissions for user.
-	 * @param user 
-	 * @return type of permission
-	 */
-	public String setPermissions(User user){
-		if (user == null){
-			return null;
-		}
-		if (user instanceof TravelAgent){
-			return permissions = "agent";
-		}else{
-			return permissions = "user";
-		}
 	}
 	
 	public String getPermissions(){

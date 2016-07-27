@@ -12,7 +12,8 @@ import controller.commands.Command;
 import controller.commands.CommandList;
 
 /**
- * Servlet implementation class Controller
+ * Servlet implementation class Controller.
+ * It implements command pattern.
  */
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {

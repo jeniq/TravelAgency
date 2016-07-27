@@ -9,68 +9,54 @@ package model.entities;
  *
  */
 public class Order {
-	private String tName;
-	private int tPrice;
 	private int orderId;
-	private int customer;
-	private int finalPrice;
-	private boolean isPaid = false;
 	private TravelAgent agent;
 	private Tour travel;
-	private String start;
-	private String end;
+	private int finalPrice;
+	private int customerId;
+	private boolean isPaid = false;
 	
 	// Constructor
-	public Order(int customer, int travel, boolean isPaid) {
-		this.customer = customer;
-		this.travel.setId(travel);
+	public Order(int orderId, int customerId, boolean isPaid) {
+		this.orderId = orderId;
+		this.customerId = customerId;
 		this.isPaid = isPaid;
 	}
 	
-	public Order(int customer, Tour travel){
-		this.customer = customer;
+	// Constructor
+	public Order(User customer, Tour travel) {
+		this.customerId = customer.getId();
 		this.travel = travel;
 	}
-	public Order(String tName, int tPrice, boolean isPaid, String aName, String aSurname, int finalPrice, String start, String end){
-		this.tName = tName;
-		this.tPrice = tPrice;
+
+	// Constructor
+	public Order(int orderId, String tName, int tPrice, boolean isPaid, String aName, String aSurname, int finalPrice,
+			String start, String end) {
+		this.orderId = orderId;
+		travel = new Tour();
+		travel.setName(tName);
+		travel.setPrice(tPrice);
+		travel.setStartDate(start);
+		travel.setEndDate(end);
 		this.isPaid = isPaid;
 		agent = new TravelAgent(aName, aSurname);
 		this.finalPrice = finalPrice;
-		this.start = start;
-		this.end = end;
 	}
 	
-	public Order(String travelName, int price, boolean isPaid){
-		this.tName = travelName;
-		this.tPrice = price;
-		this.isPaid = isPaid;
-	}
-	
-	public String getTravelName() {
-		return tName;
-	}
-
-	public void setTravelName(String travelName) {
-		this.tName = travelName;
-	}
-
-	public int gettPrice() {
-		return tPrice;
-	}
-
-	
-	
+	/**
+	 * This method sets total order's price after checking user/travel discount
+	 * 
+	 * @param travel ordered travel
+	 * @param user customer
+	 */
 	public void setPrice(Tour travel, User user) {
-		finalPrice = travel.getPrice();
 		int discount = 0;
-		// set travel's price including discount
-		if (travel.getDiscount() > 0){
-			discount = travel.getDiscount(); 
-		}else if (((Customer)user).getDiscount() > 0){
-			discount = ((Customer)user).getDiscount();
+		if (travel.getDiscount() == 0) {
+			if (((Customer) user).getDiscount() > 0) {
+				discount = ((Customer) user).getDiscount();
+			}
 		}
-		finalPrice = (int) (finalPrice * (1 - discount/100.));
+		finalPrice = (int) (travel.getPrice() * (1 - discount / 100.));
 	}
 
 	public int getId() {
@@ -81,8 +67,8 @@ public class Order {
 		this.orderId = id;
 	}
 
-	public int getCustomer() {
-		return customer;
+	public int getCustomerId() {
+		return customerId;
 	}
 
 	public int gettId() {
@@ -102,25 +88,31 @@ public class Order {
 	}
 
 	public String getStart() {
-		return start;
+		return travel.getStartDate();
 	}
 
 	public String getEnd() {
-		return end;
+		return travel.getEndDate();
 	}
 
 	public void setAgent(TravelAgent agent) {
 		this.agent = agent;
 	}
 
-	
-	
 	public void setPaid(boolean isPaid) {
 		this.isPaid = isPaid;
 	}
 
 	public int getFinalPrice() {
 		return finalPrice;
+	}
+	
+	public String getTravelName() {
+		return travel.getName();
+	}
+
+	public int getTravelPrice() {
+		return travel.getPrice();
 	}
 	
 }

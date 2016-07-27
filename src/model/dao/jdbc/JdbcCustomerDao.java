@@ -10,82 +10,60 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import log.LogMessageConstants;
 import model.dao.CustomerDao;
 import model.entities.Customer;
 
 /**
  * This class performs work with MySQL table 'customer' using JDBC connection.
- * It implements CustomerDao and realises methods for creating, updating,
- * deleting and searching customer.
+ * It implements CustomerDao and realises methods for creating, searching and
+ * setting customer's discount.
  * 
  * @author Yevhen Hryshchenko
  * @version 16 June 2016
  */
 public class JdbcCustomerDao implements CustomerDao{
+	// SQL statements
+	final static String CREATE = "INSERT INTO customer (c_name, c_surname, c_discount) VALUES (?, ?, ?)";
+	final static String FIND_BY_ID = "SELECT * FROM customer WHERE c_id = ?";
+	final static String FIND_ALL = "SELECT * FROM customer";
+	final static String FIND_BY_ACCOUNT = "SELECT * FROM customer WHERE c_login = ? AND c_password = ?";
+	final static String SET_DISCOUNT = "UPDATE customer set c_discount = ? where c_id= ?";
 	
 	@Override
 	public void create(Customer customer) {
 		try (Connection cn = JdbcDaoFactory.getConnection();
-				PreparedStatement query = cn.prepareStatement("INSERT INTO customer VALUES (?, ?, ?, ?)",
-						Statement.RETURN_GENERATED_KEYS)) {
-			query.setInt(1, customer.getId());
-			query.setString(2, customer.getName());
-			query.setString(3, customer.getSurname());
-			query.setInt(4, customer.getDiscount());
+				PreparedStatement query = cn.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
+			query.setString(1, customer.getName());
+			query.setString(2, customer.getSurname());
+			query.setInt(3, customer.getDiscount());
 			query.executeUpdate();
 			ResultSet rs = query.getGeneratedKeys();
 			if (rs.next()) {
-				int id = rs.getInt(1);
-				customer.setId(id);
+				customer.setId(rs.getInt(1));
 			}
 		} catch (SQLException e) {
-			Logger.getLogger(JdbcCustomerDao.class.getName()).error(LogMessageConstants.ERROR_CREATING_CUSTOMER, e);
+			Logger.getLogger(JdbcCustomerDao.class.getName()).error(e);
 			throw new RuntimeException();
 		}
 	}
 
-	// This method updates customer's discount
-	@Override
-	public boolean update(Customer customer) {
-		try (Connection cn = JdbcDaoFactory.getConnection();
-				PreparedStatement query = cn.prepareStatement("UPDATE customer set c_discount = ? where c_id= ?")) {
-			query.setInt(1, customer.getDiscount());
-			query.setInt(2, customer.getId());
-			query.executeUpdate();
-			return true;
-		} catch (SQLException e) {
-			Logger.getLogger(JdbcCustomerDao.class.getName()).error(LogMessageConstants.ERROR_SETTING_DISCOUNT, e);
-		}
-		return false;
-	}
-
 	@Override
 	public boolean delete(int id) {
-		try (Connection cn = JdbcDaoFactory.getConnection();
-				PreparedStatement query = cn.prepareStatement("DELETE from customer where c_id = ?")) {
-			query.setInt(1, id);
-			query.executeUpdate();
-			return true;
-		} catch (SQLException e) {
-			Logger.getLogger(JdbcCustomerDao.class.getName()).error(LogMessageConstants.ERROR_DELETING_CUSTOMER, e);
-		}
 		return false;
 	}
 
 	@Override
 	public Customer find(int id) {
 		try (Connection cn = JdbcDaoFactory.getConnection();
-				PreparedStatement query = cn.prepareStatement("SELECT * from customer where c_id = ?")) {
+				PreparedStatement query = cn.prepareStatement(FIND_BY_ID)) {
 			query.setInt(1, id);
 			ResultSet rs = query.executeQuery();
 			if (rs.next()) {
-				Customer customer = new Customer(rs.getString(2), rs.getString(3), rs.getInt(4));
-				customer.setId(rs.getInt(1));
+				Customer customer = new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
 				return customer;
 			}
 		} catch (SQLException e) {
-			Logger.getLogger(JdbcCustomerDao.class.getName()).error(LogMessageConstants.ERROR_SEARCHING_CUSTOMER_ID + id, e);
+			Logger.getLogger(JdbcCustomerDao.class.getName()).error(e);
 			throw new RuntimeException();
 		}
 		return null;
@@ -95,17 +73,16 @@ public class JdbcCustomerDao implements CustomerDao{
 	public List<Customer> findAll() {
 		try (Connection connection = JdbcDaoFactory.getConnection()) {
 			Statement query = connection.createStatement();
-			ResultSet rs = query.executeQuery("SELECT * from customer");
+			ResultSet rs = query.executeQuery(FIND_ALL);
 			List<Customer> customers = new ArrayList<>();
 			while (rs.next()) {
-				Customer customer = new Customer(rs.getString(2), rs.getString(3), rs.getInt(4));
-				customer.setId(rs.getInt(1));
+				Customer customer = new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
 				customers.add(customer);
 			}
 			query.close();
 			return customers;
 		} catch (SQLException e) {
-			Logger.getLogger(JdbcCustomerDao.class.getName()).error(LogMessageConstants.ERROR_SEARCHING_CUSTOMER_LIST, e);
+			Logger.getLogger(JdbcCustomerDao.class.getName()).error(e);
 			throw new RuntimeException();
 		}
 	}
@@ -113,18 +90,16 @@ public class JdbcCustomerDao implements CustomerDao{
 	@Override
 	public Customer findAccount(String login, int password) {
 		try (Connection cn = JdbcDaoFactory.getConnection();
-				PreparedStatement query = cn
-						.prepareStatement("SELECT * from customer where c_login = ? and c_password = ?")) {
+				PreparedStatement query = cn.prepareStatement(FIND_BY_ACCOUNT)) {
 			query.setString(1, login);
 			query.setInt(2, password);
 			ResultSet rs = query.executeQuery();
 			if (rs.next()) {
-				Customer customer = new Customer(rs.getString(2), rs.getString(3), rs.getInt(4));
-				customer.setId(rs.getInt(1));
+				Customer customer = new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
 				return customer;
 			}
 		} catch (SQLException e) {
-			Logger.getLogger(JdbcCustomerDao.class.getName()).error(LogMessageConstants.ERROR_SEARCHING_CUSTOMER_ACCOUNT, e);
+			Logger.getLogger(JdbcCustomerDao.class.getName()).error(e);
 			throw new RuntimeException();
 		}
 		return null;
@@ -133,15 +108,15 @@ public class JdbcCustomerDao implements CustomerDao{
 	@Override
 	public boolean setDiscount(int id, int discount) {
 		try (Connection cn = JdbcDaoFactory.getConnection();
-				PreparedStatement query = cn.prepareStatement("UPDATE customer set c_discount = ? where c_id= ?")) {
+				PreparedStatement query = cn.prepareStatement(SET_DISCOUNT)) {
 			query.setInt(1, discount);
 			query.setInt(2, id);
 			query.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			Logger.getLogger(JdbcCustomerDao.class.getName()).error(LogMessageConstants.ERROR_SETTING_DISCOUNT, e);
+			Logger.getLogger(JdbcCustomerDao.class.getName()).error(e);
+			throw new RuntimeException();
 		}
-		return false;
 	}
 
 }

@@ -35,6 +35,7 @@ public class JdbcDaoFactory extends DaoFactory {
 			ds = (DataSource) ic.lookup("java:comp/env/jdbc/travel_db");
 		} catch (NamingException e) {
 			Logger.getLogger(JdbcDaoFactory.class.getName()).error(e);
+			new RuntimeException();
 		}
 	}
 
@@ -52,14 +53,15 @@ public class JdbcDaoFactory extends DaoFactory {
 	public TourDao createTourDao() {
 		return new JdbcTourDao();
 	}
-	
+
 	@Override
 	public OrderDao createOrderDao() {
 		return new JdbcOrderDao();
 	}
 
 	/**
-	 * This method returns pooled connection 
+	 * This method returns pooled connection
+	 * 
 	 * @return connection to database
 	 * @throws SQLException
 	 */

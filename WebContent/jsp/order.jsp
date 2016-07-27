@@ -1,47 +1,91 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Order info</title>
-</head>
-<body>
-	<div>
-		<p>${user.getName() } ${user.getSurname() }, your travel is
-		<p>
-		<p>${travel.getName() }</p>
-		<p>travel id: ${travel.getId() }</p>
-		<p>Date: ${travel.getStartDate() } - ${travel.getEndDate() }</p>
-		<p>Travel type: ${ travel.getType() }</p>
-		<p>Price: ${travel.getPrice() }</p>
-		<c:if test = "${travel.getIsHot() }">
-			<p>Travel discount: ${travel.getDiscount() }%</p>
-		</c:if>
-		<c:if test = "${user.getDiscount() gt '0' }">
-			<p>Your discount: ${user.getDiscount() }%</p>
-		</c:if>
-		<p>Total: ${order.getFinalPrice() }</p>
-		<p>
-			Payment status:
-			<c:if test="${order.getIsPaid()}">paid</c:if>
-			<c:if test="${not order.getIsPaid()}">unpaid</c:if>
-		</p>
-		<p>
-			<a href="./Controller?command=FIND_ALL_TOURS">Continue</a> 
-			<a href="./Controller?command=PAY_TOUR">Pay tour</a>
-			<c:if test = "${not order.getIsPaid()}">
-				<a href="./Controller?command=BOOK_TOUR">Book</a>
-			</c:if>
-		</p>
+	<head>
+		<fmt:setLocale value="${lang}" />
+		<fmt:setBundle basename="localization/messages" var="bundle" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>
+			<fmt:message key="order.label.title" bundle="${bundle}" />
+		</title>
+	</head>
+	<body>
+		<div>
+			<p>${user.getName() }
+				${user.getSurname() },
+				<fmt:message key="order.label.yourTravel" bundle="${bundle}" />
+				${travel.getName() }
+			</p>
 			<p>
-			<c:if test="${order.getId() ne 0 }"> Travel has 
-				<c:if test="${order.getIsPaid() }">paid</c:if>
-				<c:if test="${not order.getIsPaid() }">booked</c:if>
-		 		succesfull!
-		 	</c:if>
-		</p>  
-	</div>
-</body>
+				<fmt:message key="order.label.travelId" bundle="${bundle}" />
+				: ${travel.getId() }
+			</p>
+			<p>
+				<fmt:message key="order.label.date" bundle="${bundle}" />
+				: ${travel.getStartDate() } - ${travel.getEndDate() }
+			</p>
+			<p>
+				<fmt:message key="order.label.travelType" bundle="${bundle}" />
+				: ${ travel.getType() }
+			</p>
+			<p>
+				<fmt:message key="order.label.price" bundle="${bundle}" />
+				: ${travel.getPrice() }
+			</p>
+			<c:if test="${travel.getIsHot() }">
+				<p>
+					<fmt:message key="order.label.travelDiscount" bundle="${bundle}" />
+					: ${travel.getDiscount() }%
+				</p>
+			</c:if>
+			<c:if test="${user.getDiscount() gt '0' }">
+				<p>
+					<fmt:message key="order.label.userDiscount" bundle="${bundle}" />
+					: ${user.getDiscount() }%
+				</p>
+			</c:if>
+			<p>
+				<fmt:message key="order.label.totalPrice" bundle="${bundle}" />
+				: ${order.getFinalPrice() }
+			</p>
+			<p>
+				<fmt:message key="order.label.paymentStatus" bundle="${bundle}" />:
+				<c:if test="${order.getIsPaid()}">
+					<fmt:message key="order.label.paid" bundle="${bundle}" />
+				</c:if>
+				<c:if test="${not order.getIsPaid()}">
+					<fmt:message key="order.label.unpaid" bundle="${bundle}" />
+				</c:if>
+			</p>
+			<p>
+				<a href="./Controller?command=FIND_ALL_TOURS">
+					<fmt:message key="order.link.continue" bundle="${bundle}" />
+				</a> 
+				<a href="./Controller?command=PAY_TOUR">
+					<fmt:message key="order.link.payTour" bundle="${bundle}" />
+				</a>
+				<c:if test="${not order.getIsPaid()}">
+					<a href="./Controller?command=BOOK_TOUR">
+						<fmt:message key="order.label.book" bundle="${bundle}" />
+					</a>
+				</c:if>
+			</p>
+			<p>
+				<c:if test="${order.getId() ne 0 }">
+					<fmt:message key="order.label.travelHas" bundle="${bundle}" />
+					<c:if test="${order.getIsPaid() }">
+						<fmt:message key="order.label.paid" bundle="${bundle}" />
+					</c:if>
+					<c:if test="${not order.getIsPaid() }">
+						<fmt:message key="order.label.booked" bundle="${bundle}" />
+					</c:if>
+					<fmt:message key="order.label.succesful" bundle="${bundle}" />!
+		 		</c:if>
+			</p>
+		</div>
+	</body>
 </html>

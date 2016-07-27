@@ -33,7 +33,7 @@ input[type="submit"]{
 	margin-left: 50px;
 }
 
-#travels tr:hover{
+#travels tr:hover:not(#title){
 	background: #D3D3D3;	
 }
 
@@ -48,3 +48,24 @@ input[type="submit"]{
 	margin-top: 30px;
 }
 
+#title{
+	text-align: right;
+	font-weight: 700;
+	font-size: 14pt;
+}
+
+#crossed{
+	text-decoration: line-through;
+}
+
+#travelName{
+	text-align: center;
+}
+
+#customerList{
+	text-align: left;
+}
+
+#customerList td{
+	padding-right: 10px;
+}

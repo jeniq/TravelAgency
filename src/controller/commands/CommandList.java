@@ -18,7 +18,8 @@ public enum CommandList {
 	USER_ORDERS(new UserOrdersCommand()),
 	SET_HOT(new SetHotTourCommand()),
 	FIND_ALL_CUSTOMERS(new CustomerListCommand()),
-	SET_USER_DISCOUNT(new SetUserDiscount());
+	SET_USER_DISCOUNT(new SetUserDiscount()),
+	CANCEL_ORDER(new CancelOrderCommand());
 
 	private Command command;
 

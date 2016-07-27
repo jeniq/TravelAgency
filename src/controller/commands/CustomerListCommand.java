@@ -24,7 +24,7 @@ public class CustomerListCommand implements Command{
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<Customer> result = customerService.getAll();
-		request.setAttribute(CommandConstants.CUSTOMERS_LIST, result);
+		request.setAttribute(CommandConstants.CUSTOMER_LIST, result);
 
 		return CommandConstants.TRAVEL_LIST_PAGE;
 	}

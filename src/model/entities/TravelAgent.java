@@ -15,10 +15,16 @@ public class TravelAgent extends User{
 	public TravelAgent(String name, String surname) {
 		super(name, surname);
 	}
+	
+	// Constructor
+	public TravelAgent(int id, String name, String surname) {
+		super(id, name, surname);
+	}
 
 	@Override
 	public String toString(){
-		return "Travel agent " 
+		return "Travel agent "
+				+ id + " "
 				+ name + " " 
 				+ surname;
 	}

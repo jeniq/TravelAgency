@@ -11,7 +11,8 @@ import model.entities.Order;
 import model.services.OrderService;
 
 /**
- * This class executes booking of travel and add it to database using service.
+ * This class executes traveling reserving, sets responsible agent for order and
+ * adds it to database using service.
  * 
  * @author Yevhen Hryshchenko
  * @version 22 Jule 2016
@@ -25,12 +26,11 @@ public class BookTravelCommand implements Command {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		Order order = (Order) session.getAttribute(CommandConstants.ORDER);
-		
-		order.setAgent(orderService.selectAgent(order));
+
 		orderService.bookTravel(order);
 		session.setAttribute(CommandConstants.ORDER, order);
-		
+
 		return CommandConstants.ORDER_PAGE;
 	}
-	
+
 }

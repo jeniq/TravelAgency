@@ -1,29 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="styles/userOrders.css">
+	<fmt:setLocale value="${lang}" />
+	<fmt:setBundle basename="localization/messages" var="bundle" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>
+		<fmt:message key="userOrders.label.title" bundle="${bundle}" />
+	</title>
+	<link rel="stylesheet" type="text/css" href="styles/userOrders.css">
 </head>
 <body>
 	<table>
-	<c:forEach var="order" items="${orderList}">
-		<tr>
-			<td><label>${order.getTravelName()}</label></td>
-			<td><label>${order.getStart()} - ${order.getEnd()}</label></td>
-			<td><label>Full price: </label>${order.gettPrice()}$</td>
-			<td><label>Final price: </label>${order.getFinalPrice()}$</td>
-			<td><label>Payment status: </label>
-				<c:if test = "${not order.getIsPaid() }">unpaid</c:if>
-				<c:if test = "${ order.getIsPaid() }">paid</c:if>
-			</td>
-			<td><label>Personal manager: </label>${order.getAgent().getName() } ${order.getAgent().getSurname() }</td>
-		</tr>
-	</c:forEach>
+		<c:forEach var="order" items="${orderList}">
+			<form action="./Controller">
+				<tr>
+					<td>
+						<input type="hidden" name="command" value="CANCEL_ORDER" />
+					</td>
+					<td>
+						<input type="hidden" name="orderId" value="${order.getId()}" />
+					</td>
+					<td>
+						<label>${order.getTravelName()}</label>
+					</td>
+					<td>
+						<label>${order.getStart()} - ${order.getEnd()}</label>
+					</td>
+					<td>
+						<label>
+							<fmt:message key="userOrders.label.fullPrice" bundle="${bundle}" />: 
+						</label>
+						${order.getTravelPrice()}$
+					</td>
+					<td>
+						<label>
+							<fmt:message key="userOrders.label.finalPrice" bundle="${bundle}" />: 
+						</label>
+						${order.getFinalPrice()}$
+					</td>
+					<td>
+						<label>
+							<fmt:message key="userOrders.label.paymentStatus" bundle="${bundle}" />: 
+						</label>
+						<c:if test="${not order.getIsPaid() }">
+							<fmt:message key="userOrders.label.unpaid" bundle="${bundle}" />
+						</c:if>
+						<c:if test="${ order.getIsPaid() }">
+							<fmt:message key="userOrders.label.paid" bundle="${bundle}" />
+						</c:if>
+					</td>
+					<td>
+						<label>
+							<fmt:message key="userOrders.label.personalManager" bundle="${bundle}" />: 
+						</label>
+						${order.getAgent().getName() } ${order.getAgent().getSurname() }
+					</td>
+					<td>
+						<input type="submit" value="Cancel" />
+					</td>
+				</tr>
+			</form>
+		</c:forEach>
 	</table>
-	<a href="./Controller?command=FIND_ALL_TOURS">Continue</a>
+	<a href="./Controller?command=FIND_ALL_TOURS">
+		<fmt:message key="userOrders.label.continue" bundle="${bundle}" />
+	</a>
 </body>
 </html>

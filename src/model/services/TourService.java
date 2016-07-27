@@ -6,25 +6,44 @@ import model.dao.DaoFactory;
 import model.dao.TourDao;
 import model.entities.Tour;
 
+/**
+ * This class implements tour service. It contains methods that searches travels
+ * and sets travel like hot.
+ * 
+ * @author Yevhen Hryshchenko
+ * @version 24 Jule 2016
+ */
 public class TourService {
 	private static TourService instance = new TourService();
-	public static TourService getInstance(){ return instance; }
+	private DaoFactory factory = DaoFactory.getInstance();
+
+	public static TourService getInstance() {
+		return instance;
+	}
 	
-	public List<Tour> getAll(){
-		DaoFactory factory = DaoFactory.getInstance();
+	public List<Tour> getAll() {
 		TourDao tourDao = factory.createTourDao();
 		return tourDao.findAll();
 	}
 	
-	public Tour getTravel(int id){
-		DaoFactory factory = DaoFactory.getInstance();
+	// This method return travel object by travel id
+	public Tour getTravel(int id) {
 		TourDao tourDao = factory.createTourDao();
 		return tourDao.find(id);
 	}
 	
-	public boolean setHotTravel(int id, boolean isHot, int discount){
-		DaoFactory factory = DaoFactory.getInstance();
+	// This method sets travel like hot and sets discount or cancel hot status
+	public boolean setHotTravel(Tour tour, boolean isHot, int discount) {
+		if (discount < 0 || discount > 99) {
+			return false;
+		}
 		TourDao tourDao = factory.createTourDao();
-		return tourDao.setHot(id, isHot, discount);
+		if (isHot) {
+			tour.setDiscountPrice(discount);
+		} else {
+			tour.cancelDiscountPrice();
+		}
+		return tourDao.setHot(tour, isHot, discount);
 	}
+
 }

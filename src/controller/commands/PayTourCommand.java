@@ -11,7 +11,7 @@ import model.entities.Order;
 import model.services.OrderService;
 
 /**
- * This class performes user's payment for travel and add it to database using
+ * This class performs user's payment for travel and add it to database using
  * order service.
  * 
  * @author Yevhen Hryshchenko
@@ -27,7 +27,6 @@ public class PayTourCommand implements Command{
 		HttpSession session = request.getSession(true);
 		Order order = (Order) session.getAttribute(CommandConstants.ORDER);
 		
-		order.setAgent(orderService.selectAgent(order));
 		orderService.payTour(order);
 		session.setAttribute(CommandConstants.ORDER, order);
 		
