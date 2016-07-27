@@ -9,20 +9,26 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import controller.commands.CommandConstants;
+import model.entities.User;
 
 /**
- * Servlet Filter implementation class EncodingFilter.
- * It sets single encoding type for application.
+ * Servlet Filter implementation class SessionFilter This filter controlls
+ * access for unsigned users.
  * 
- * @version 25 Jule 2016
+ * @author Yevhen Hryshchenko
+ * @version 28 Jule 2016
  */
-@WebFilter("/EncodingFilter")
-public class EncodingFilter implements Filter {
+@WebFilter("/SessionFilter")
+public class SessionFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public EncodingFilter() {
+    public SessionFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -39,8 +45,12 @@ public class EncodingFilter implements Filter {
 	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		request.setCharacterEncoding(FilterConstants.ENCODING);
-		response.setCharacterEncoding(FilterConstants.ENCODING);
+		HttpSession session = ((HttpServletRequest) request).getSession(true);
+		User user = (User)session.getAttribute(CommandConstants.USER);
+		if (user == null){
+			session.setAttribute(FilterConstants.NULL_SESSION, true);
+			request.getRequestDispatcher(FilterConstants.ERROR_PAGE).forward(request, response);
+		}
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
 	}
