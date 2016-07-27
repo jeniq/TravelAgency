@@ -11,6 +11,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import model.dao.CustomerDao;
+import model.dao.jdbc.exceptions.ErrorsConstants;
+import model.dao.jdbc.exceptions.JdbcException;
 import model.entities.Customer;
 
 /**
@@ -43,7 +45,7 @@ public class JdbcCustomerDao implements CustomerDao{
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcCustomerDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.CREATING, ErrorsConstants.CUSTOMER);
 		}
 	}
 
@@ -64,7 +66,7 @@ public class JdbcCustomerDao implements CustomerDao{
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcCustomerDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.SEARCHING, ErrorsConstants.CUSTOMER);
 		}
 		return null;
 	}
@@ -83,7 +85,7 @@ public class JdbcCustomerDao implements CustomerDao{
 			return customers;
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcCustomerDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.SEARCHING, ErrorsConstants.CUSTOMER);
 		}
 	}
 
@@ -100,7 +102,7 @@ public class JdbcCustomerDao implements CustomerDao{
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcCustomerDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.SEARCHING, ErrorsConstants.CUSTOMER);
 		}
 		return null;
 	}
@@ -115,7 +117,7 @@ public class JdbcCustomerDao implements CustomerDao{
 			return true;
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcCustomerDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.UPDATING, ErrorsConstants.DISCOUNT);
 		}
 	}
 

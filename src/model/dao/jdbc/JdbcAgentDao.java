@@ -11,6 +11,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import model.dao.AgentDao;
+import model.dao.jdbc.exceptions.ErrorsConstants;
+import model.dao.jdbc.exceptions.JdbcException;
 import model.entities.TravelAgent;
 
 /**
@@ -42,7 +44,7 @@ public class JdbcAgentDao implements AgentDao {
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcAgentDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.CREATING, ErrorsConstants.AGENT);
 		}
 	}
 
@@ -63,7 +65,7 @@ public class JdbcAgentDao implements AgentDao {
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcAgentDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.SEARCHING, ErrorsConstants.AGENT);
 		}
 		return null;
 	}
@@ -82,7 +84,7 @@ public class JdbcAgentDao implements AgentDao {
 			return agents;
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcAgentDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.SEARCHING, ErrorsConstants.AGENT);
 		}
 	}
 
@@ -99,7 +101,7 @@ public class JdbcAgentDao implements AgentDao {
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcAgentDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.SEARCHING, ErrorsConstants.AGENT);
 		}
 		return null;
 	}

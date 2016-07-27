@@ -32,7 +32,7 @@ public class LoginCheckCommand implements Command {
 		String password = request.getParameter(CommandConstants.PASSWORD);
 		User user = service.checkLogin(login, password); // check user existence
 															// in database
-
+		
 		if (user == null) {
 			request.setAttribute(CommandConstants.WRONG_DATA, CommandConstants.TRUE);
 			return CommandConstants.INDEX_PAGE;
@@ -40,7 +40,7 @@ public class LoginCheckCommand implements Command {
 		session.setAttribute(CommandConstants.USER, user);
 		session.setAttribute(CommandConstants.PERMISSIONS, user.setPermissions(user));
 		Logger.getLogger(LoginCheckCommand.class.getName()).info(LogMessageConstants.USER_LOGIN + login);
-
+		
 		return CommandConstants.FIND_ALL_TOURS_COMMAND;
 	}
 

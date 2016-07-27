@@ -11,6 +11,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import model.dao.TourDao;
+import model.dao.jdbc.exceptions.ErrorsConstants;
+import model.dao.jdbc.exceptions.JdbcException;
 import model.entities.Tour;
 import model.entities.TourType;
 
@@ -50,7 +52,7 @@ public class JdbcTourDao implements TourDao {
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcTourDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.CREATING, ErrorsConstants.TRAVEL);
 		}
 
 	}
@@ -63,7 +65,7 @@ public class JdbcTourDao implements TourDao {
 			return true;
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcTourDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.DELETING, ErrorsConstants.TRAVEL);
 		}
 	}
 
@@ -86,7 +88,7 @@ public class JdbcTourDao implements TourDao {
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcTourDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.SEARCHING, ErrorsConstants.TRAVEL);
 		}
 		return null;
 	}
@@ -113,7 +115,7 @@ public class JdbcTourDao implements TourDao {
 			return tours;
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcTourDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.SEARCHING, ErrorsConstants.TRAVEL);
 		}
 	}
 	
@@ -128,7 +130,7 @@ public class JdbcTourDao implements TourDao {
 			return true;
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcTourDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.UPDATING, ErrorsConstants.TRAVEL);
 		}
 	}
 
@@ -151,7 +153,7 @@ public class JdbcTourDao implements TourDao {
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcTourDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.SEARCHING, ErrorsConstants.TRAVEL);
 		}
 		return null;
 	}

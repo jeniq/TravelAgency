@@ -11,6 +11,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import model.dao.OrderDao;
+import model.dao.jdbc.exceptions.ErrorsConstants;
+import model.dao.jdbc.exceptions.JdbcException;
 import model.entities.Order;
 
 /**
@@ -51,7 +53,7 @@ public class JdbcOrderDao implements OrderDao{
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcOrderDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.CREATING, ErrorsConstants.ORDER);
 		}
 	}
 
@@ -67,8 +69,8 @@ public class JdbcOrderDao implements OrderDao{
 			return true;
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcOrderDao.class.getName()).error(e);
+			throw new JdbcException(ErrorsConstants.UPDATING, ErrorsConstants.ORDER);
 		}
-		return false;
 	}
 
 	@Override
@@ -80,7 +82,7 @@ public class JdbcOrderDao implements OrderDao{
 			return true;
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcOrderDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.DELETING, ErrorsConstants.ORDER);
 		}
 	}
 
@@ -96,7 +98,7 @@ public class JdbcOrderDao implements OrderDao{
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcOrderDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.SEARCHING, ErrorsConstants.ORDER);
 		}
 		return null;
 	}
@@ -109,13 +111,12 @@ public class JdbcOrderDao implements OrderDao{
 			query.setInt(2, travId);
 			ResultSet rs = query.executeQuery();
 			if (rs.next()) {
-				System.out.println(rs.getInt(3));
 				Order order = new Order(rs.getInt(1), rs.getInt(2), new Boolean(rs.getBoolean(4)));
 				return order;
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcOrderDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.SEARCHING, ErrorsConstants.ORDER);
 		}
 		return null;
 	}
@@ -134,7 +135,7 @@ public class JdbcOrderDao implements OrderDao{
 			return orders;
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcOrderDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.SEARCHING, ErrorsConstants.ORDER);
 		}
 	}
 
@@ -156,7 +157,7 @@ public class JdbcOrderDao implements OrderDao{
 			return orders;
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcOrderDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.SEARCHING, ErrorsConstants.ORDER);
 		}
 	}
 
@@ -170,7 +171,7 @@ public class JdbcOrderDao implements OrderDao{
 			return true;
 		} catch (SQLException e) {
 			Logger.getLogger(JdbcOrderDao.class.getName()).error(e);
-			throw new RuntimeException();
+			throw new JdbcException(ErrorsConstants.UPDATING, ErrorsConstants.ORDER);
 		}
 	}
 

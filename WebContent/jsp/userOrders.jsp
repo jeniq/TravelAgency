@@ -32,12 +32,6 @@
 					</td>
 					<td>
 						<label>
-							<fmt:message key="userOrders.label.fullPrice" bundle="${bundle}" />: 
-						</label>
-						${order.getTravelPrice()}$
-					</td>
-					<td>
-						<label>
 							<fmt:message key="userOrders.label.finalPrice" bundle="${bundle}" />: 
 						</label>
 						${order.getFinalPrice()}$

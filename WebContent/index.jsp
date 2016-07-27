@@ -45,7 +45,7 @@
 			</div>
 			<br>
 			<c:if test="${wrongData}">
-				<fmt:message key="index.label.password" bundle="${bundle}" />:
+				<fmt:message key="index.label.wrongData" bundle="${bundle}" />
 			</c:if>
 		</div>
 	</body>

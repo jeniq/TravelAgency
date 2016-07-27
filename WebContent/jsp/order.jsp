@@ -34,7 +34,7 @@
 			</p>
 			<p>
 				<fmt:message key="order.label.price" bundle="${bundle}" />
-				: ${travel.getPrice() }
+				: ${travel.getOriginPrice() }$
 			</p>
 			<c:if test="${travel.getIsHot() }">
 				<p>
@@ -50,7 +50,7 @@
 			</c:if>
 			<p>
 				<fmt:message key="order.label.totalPrice" bundle="${bundle}" />
-				: ${order.getFinalPrice() }
+				: ${order.getFinalPrice() }$
 			</p>
 			<p>
 				<fmt:message key="order.label.paymentStatus" bundle="${bundle}" />:
