@@ -93,7 +93,7 @@ public class JdbcOrderDao implements OrderDao{
 			query.setInt(1, id);
 			ResultSet rs = query.executeQuery();
 			if (rs.next()) {
-				Order order = new Order(rs.getInt(1), rs.getInt(2), new Boolean(rs.getBoolean(4)));
+				Order order = new Order(rs.getInt(1), rs.getInt(2), rs.getInt(3), new Boolean(rs.getBoolean(4)));
 				return order;
 			}
 		} catch (SQLException e) {
@@ -111,7 +111,8 @@ public class JdbcOrderDao implements OrderDao{
 			query.setInt(2, travId);
 			ResultSet rs = query.executeQuery();
 			if (rs.next()) {
-				Order order = new Order(rs.getInt(1), rs.getInt(2), new Boolean(rs.getBoolean(4)));
+				Order order = new Order(rs.getInt(1), rs.getInt(2), rs.getInt(3), new Boolean(rs.getBoolean(4)));
+				order.setFinalPrice(rs.getInt(6));
 				return order;
 			}
 		} catch (SQLException e) {
@@ -128,7 +129,7 @@ public class JdbcOrderDao implements OrderDao{
 			ResultSet rs = query.executeQuery(FIND_ALL);
 			List<Order> orders = new ArrayList<>();
 			while (rs.next()) {
-				Order order = new Order(rs.getInt(1), rs.getInt(2), new Boolean(rs.getBoolean(4)));
+				Order order = new Order(rs.getInt(1), rs.getInt(2), rs.getInt(3), new Boolean(rs.getBoolean(4)));
 				orders.add(order);
 			}
 			query.close();

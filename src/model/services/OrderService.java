@@ -29,6 +29,12 @@ public class OrderService {
 		OrderDao orderDao = factory.createOrderDao();
 		return orderDao.findAll(id);
 	}
+	
+	// This method returns order by travel and user's id
+	public Order getOrder(int travelId, int customerId){
+		OrderDao orderDao = factory.createOrderDao();
+		return orderDao.find(travelId, customerId);
+	}
 
 	// This method sets paid status for order
 	public Order payTour(Order order) {

@@ -35,6 +35,7 @@ public class Controller extends HttpServlet {
 		String commandName = request.getParameter("command");
 		Command command = CommandList.valueOf(commandName).getCommand();
 		String target = command.execute(request, response);
+		
 		request.getRequestDispatcher(target).forward(request, response);
 	}
 

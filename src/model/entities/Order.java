@@ -17,7 +17,9 @@ public class Order {
 	private boolean isPaid = false;
 	
 	// Constructor
-	public Order(int orderId, int customerId, boolean isPaid) {
+	public Order(int orderId, int customerId, int travelId, boolean isPaid) {
+		travel = new Tour();
+		travel.setId(travelId);
 		this.orderId = orderId;
 		this.customerId = customerId;
 		this.isPaid = isPaid;
@@ -113,6 +115,10 @@ public class Order {
 
 	public int getTravelPrice() {
 		return travel.getPrice();
+	}
+
+	public void setFinalPrice(int finalPrice) {
+		this.finalPrice = finalPrice;
 	}
 	
 }

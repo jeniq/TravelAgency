@@ -49,7 +49,7 @@
 				<td></td>
 			</tr>
 			<c:forEach var="travel" items="${list}">
-				<form method="GET" action="./Controller">
+				<form method="GET" action="./Controller" >
 					<tr>
 						<c:if test="${user.getPermissions() eq 'agent' }">
 							<td>${travel.getId() }</td>

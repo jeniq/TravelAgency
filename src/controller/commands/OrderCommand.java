@@ -33,6 +33,7 @@ public class OrderCommand implements Command {
 		Order order = new Order(user, tour);
 
 		order.setPrice(tour, user); // price sets including discounts
+		
 		session.setAttribute(CommandConstants.ORDER, order);
 		session.setAttribute(CommandConstants.TRAVEL, tour);
 

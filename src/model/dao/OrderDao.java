@@ -22,4 +22,5 @@ public interface OrderDao extends GenericDao<Order> {
 	
 	// This method updates order's information
 	boolean update(Order order);
+	
 }
