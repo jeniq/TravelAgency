@@ -11,8 +11,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
 /**
- * Servlet Filter implementation class EncodingFilter.
- * It sets single encoding type for application.
+ * Servlet Filter implementation class EncodingFilter. It sets single encoding
+ * type for application.
  * 
  * @version 25 Jule 2016
  */

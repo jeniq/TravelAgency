@@ -19,7 +19,12 @@ import model.entities.User;
 import model.services.OrderService;
 
 /**
- * Servlet Filter implementation class OrderFilter
+ * Servlet Filter implementation class OrderFilter. This filter checks travel's
+ * status in order list for current user and sets appropriate data about this
+ * one.
+ * 
+ * @author Yevhen Hryshchenko
+ * @version 31 Jule 2016
  */
 @WebFilter("/OrderFilter")
 public class OrderFilter implements Filter {
@@ -48,10 +53,10 @@ public class OrderFilter implements Filter {
 		HttpSession session = ((HttpServletRequest) request).getSession(true);
 		OrderService orderService = OrderService.getInstance();
 		Tour travel = (Tour)session.getAttribute(CommandConstants.TRAVEL);
-		User user = (User)session.getAttribute(FilterConstants.USER);
+		User user = (User)session.getAttribute(CommandConstants.USER);
 		
 		if ((order = orderService.getOrder(user.getId(), travel.getId())) != null) {
-			session.setAttribute(FilterConstants.ORDER, order);
+			session.setAttribute(CommandConstants.ORDER, order);
 		}
 			
 		// pass the request along the filter chain
