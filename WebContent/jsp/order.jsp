@@ -15,10 +15,11 @@
 	</head>
 	<body>
 		<div>
-			<p>${user.getName() }
-				${user.getSurname() },
+			<p>
+				<fmt:message key="${user.getName() }" bundle="${bundle}" />
+				<fmt:message key="${user.getSurname() }" bundle="${bundle}" />,
 				<fmt:message key="order.label.yourTravel" bundle="${bundle}" />
-				${travel.getName() }
+				<fmt:message key="${travel.getName() }" bundle="${bundle}" />,
 			</p>
 			<p>
 				<fmt:message key="order.label.travelId" bundle="${bundle}" />
@@ -30,7 +31,7 @@
 			</p>
 			<p>
 				<fmt:message key="order.label.travelType" bundle="${bundle}" />
-				: ${ travel.getType() }
+				: <fmt:message key="${ travel.getType().toString() }" bundle="${bundle}" />
 			</p>
 			<p>
 				<fmt:message key="order.label.price" bundle="${bundle}" />

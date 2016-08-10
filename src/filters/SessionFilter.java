@@ -16,7 +16,7 @@ import controller.commands.CommandConstants;
 import model.entities.User;
 
 /**
- * Servlet Filter implementation class SessionFilter This filter controlls
+ * Servlet Filter implementation class SessionFilter. This filter controlls
  * access for unsigned users.
  * 
  * @author Yevhen Hryshchenko

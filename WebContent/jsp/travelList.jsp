@@ -16,7 +16,9 @@
 	</head>
 	<body>
 		<div id="header">
-			<fmt:message key="travelList.label.welcome" bundle="${bundle}" />, ${user.getName()} ${user.getSurname()}
+			<fmt:message key="travelList.label.welcome" bundle="${bundle}" />, 
+				<fmt:message key="${user.getName()}" bundle="${bundle}" />
+				<fmt:message key="${user.getSurname()}" bundle="${bundle}" />
 			<c:if test="${user.getPermissions() eq 'user' }"> | 
 				<a href="./Controller?command=USER_ORDERS">
 					<fmt:message key="travelList.label.myOrders" bundle="${bundle}" />
@@ -58,7 +60,7 @@
 							<c:if test="${travel.getIsHot() }">
 								<label id="hotTour"><fmt:message key="travelList.label.hotTour" bundle="${bundle}" /></label>
 							</c:if> 
-							<label>${travel.getName()}</label>
+							<label><fmt:message key="${travel.getName()}" bundle="${bundle}" /></label>
 						</td>
 						<c:if test="${travel.getDiscount() eq '0' }">
 							<td>

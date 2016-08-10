@@ -25,7 +25,7 @@
 						<input type="hidden" name="orderId" value="${order.getId()}" />
 					</td>
 					<td>
-						<label>${order.getTravelName()}</label>
+						<label><fmt:message key="${order.getTravelName()}" bundle="${bundle}" /></label>
 					</td>
 					<td>
 						<label>${order.getStart()} - ${order.getEnd()}</label>
@@ -51,7 +51,8 @@
 						<label>
 							<fmt:message key="userOrders.label.personalManager" bundle="${bundle}" />: 
 						</label>
-						${order.getAgent().getName() } ${order.getAgent().getSurname() }
+						<fmt:message key="${order.getAgent().getName() }" bundle="${bundle}" />
+						<fmt:message key="${order.getAgent().getSurname() }" bundle="${bundle}" />
 					</td>
 					<td>
 						<input type="submit" value="Cancel" />
