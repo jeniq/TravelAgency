@@ -176,8 +176,8 @@
 					<c:forEach var="customer" items="${customerList}">
 						<tr>
 							<td>${customer.getId()}</td>
-							<td>${customer.getName() }</td>
-							<td>${customer.getSurname() }</td>
+							<td><fmt:message key="${customer.getName() }" bundle="${bundle}" /></td>
+							<td><fmt:message key="${customer.getSurname() }" bundle="${bundle}" /></td>
 							<td>${customer.getDiscount() } %</td>
 						</tr>
 				</c:forEach>
