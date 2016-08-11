@@ -14,6 +14,10 @@
     <exception-type>java.lang.NumberFormatException</exception-type>
     <location>/jsp/error.jsp</location>
   </error-page>
+  <error-page>
+    <exception-type>java.lang.NullPointerException</exception-type>
+    <location>/jsp/error.jsp</location>
+  </error-page>
   <filter>
     <display-name>EncodingFilter</display-name>
     <filter-name>EncodingFilter</filter-name>

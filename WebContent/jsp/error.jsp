@@ -25,5 +25,8 @@
 				<fmt:message key="error.label.text" bundle="${bundle}" />
 			</c:otherwise>		
 		</c:choose>
+		<a href="./Controller?command=FIND_ALL_TOURS">
+			<fmt:message key="userOrders.label.continue" bundle="${bundle}" />
+		</a>
 	</body>
 </html>
