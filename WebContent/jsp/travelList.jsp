@@ -51,47 +51,43 @@
 				<td></td>
 			</tr>
 			<c:forEach var="travel" items="${list}">
-				<form method="GET" action="./Controller" >
-					<tr>
-						<c:if test="${user.getPermissions() eq 'agent' }">
-							<td>${travel.getId() }</td>
-						</c:if>
+				<tr>
+					<c:if test="${user.getPermissions() eq 'agent' }">
+						<td>${travel.getId() }</td>
+					</c:if>
+					<td>
+						<c:if test="${travel.getIsHot() }">
+							<label id="hotTour"><fmt:message key="travelList.label.hotTour" bundle="${bundle}" /></label>
+						</c:if> 
+						<label><fmt:message key="${travel.getName()}" bundle="${bundle}" /></label>
+					</td>
+					<c:if test="${travel.getDiscount() eq '0' }">
 						<td>
-							<c:if test="${travel.getIsHot() }">
-								<label id="hotTour"><fmt:message key="travelList.label.hotTour" bundle="${bundle}" /></label>
-							</c:if> 
-							<label><fmt:message key="${travel.getName()}" bundle="${bundle}" /></label>
+							<label class="travelPrice">${travel.getOriginPrice()}$</label>
 						</td>
-						<c:if test="${travel.getDiscount() eq '0' }">
-							<td>
-								<label class="travelPrice">${travel.getOriginPrice()}$</label>
-							</td>
-							<td></td>
-						</c:if>
-						<c:if test="${travel.getDiscount() gt '0' }">
-							<td>
-								<label class="travelPrice" id="crossed">${travel.getOriginPrice()}$</label>
-							</td>
-							<td>
-								<label class="travelPrice">${travel.getDiscount()}%</label>
-							</td>
-						</c:if>
+						<td></td>
+					</c:if>
+					<c:if test="${travel.getDiscount() gt '0' }">
 						<td>
-							<label class="travelPrice">${travel.getPrice()}$</label>
+							<label class="travelPrice" id="crossed">${travel.getOriginPrice()}$</label>
 						</td>
 						<td>
-							<input type="hidden" name="travelId" value="${travel.getId()}" />
+							<label class="travelPrice">${travel.getDiscount()}%</label>
 						</td>
+					</c:if>
+					<td>
+						<label class="travelPrice">${travel.getPrice()}$</label>
+					</td>
+					<c:if test="${user.getPermissions() eq 'user' }">
 						<td>
-							<input type="hidden" name="command" value="NEW_ORDER" />
-						</td>
-						<c:if test="${user.getPermissions() eq 'user' }">
-							<td>
+							<form method="GET" action="./Controller" >
+								<input type="hidden" name="command" value="NEW_ORDER" />
+								<input type="hidden" name="travelId" value="${travel.getId()}" />
 								<input type="submit" value="<fmt:message key="travelList.button.buy" bundle="${bundle}" />">
-							</td>
-						</c:if>
-					</tr>
-				</form>
+							</form>
+						</td>
+					</c:if>
+				</tr>
 			</c:forEach>
 		</table>
 
@@ -106,7 +102,6 @@
 					</td>
 					<td></td><td></td>
 				</tr>
-				<form action="./Controller">
 					<tr>
 						<td>
 							<label>
@@ -125,15 +120,15 @@
 							<input type="number" name="discount" value="0">%
 						</td>
 						<td>
-							<input type="hidden" name="command" value="SET_HOT" /> 
-							<input type="submit" name="button" 
+							<form action="./Controller">
+								<input type="hidden" name="command" value="SET_HOT" /> 
+								<input type="submit" name="button" 
 									value="<fmt:message key="travelList.button.setHot" bundle="${bundle}" />">
-							<input type="submit" name="button"
+								<input type="submit" name="button"
 									value="<fmt:message key="travelList.button.cancelHot" bundle="${bundle}" />">
+							</form>
 						</td>
 					</tr>
-				</form>
-				<form action="./Controller">
 					<tr>
 						<td>
 							<label>
@@ -152,11 +147,12 @@
 							<input type="number" name="discount" value="0">%
 						</td>
 						<td>
-							<input type="hidden" name="command" value="SET_USER_DISCOUNT" /> 
-							<input type="submit" value="<fmt:message key="travelList.button.setDiscount" bundle="${bundle}" />">
+							<form action="./Controller">
+								<input type="hidden" name="command" value="SET_USER_DISCOUNT" /> 
+								<input type="submit" value="<fmt:message key="travelList.button.setDiscount" bundle="${bundle}" />">
+							</form>
 						</td>
 					</tr>
-				</form>
 			</table>
 
 			<a href="./Controller?command=FIND_ALL_CUSTOMERS">

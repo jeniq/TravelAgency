@@ -16,14 +16,7 @@
 <body>
 	<table>
 		<c:forEach var="order" items="${orderList}">
-			<form action="./Controller">
 				<tr>
-					<td>
-						<input type="hidden" name="command" value="CANCEL_ORDER" />
-					</td>
-					<td>
-						<input type="hidden" name="orderId" value="${order.getId()}" />
-					</td>
 					<td>
 						<label><fmt:message key="${order.getTravelName()}" bundle="${bundle}" /></label>
 					</td>
@@ -55,10 +48,13 @@
 						<fmt:message key="${order.getAgent().getSurname() }" bundle="${bundle}" />
 					</td>
 					<td>
-						<input type="submit" value="Cancel" />
+						<form action="./Controller">
+							<input type="hidden" name="command" value="CANCEL_ORDER" />
+							<input type="hidden" name="orderId" value="${order.getId()}" />
+							<input type="submit" value="Cancel" />
+						</form>
 					</td>
 				</tr>
-			</form>
 		</c:forEach>
 	</table>
 	<a href="./Controller?command=FIND_ALL_TOURS">
