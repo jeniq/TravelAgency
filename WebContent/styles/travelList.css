@@ -48,6 +48,10 @@ input[type="submit"]{
 	margin-top: 30px;
 }
 
+#adminPanel input[type="submit"]{
+	margin: 0;
+}
+
 #title{
 	text-align: right;
 	font-weight: 700;
