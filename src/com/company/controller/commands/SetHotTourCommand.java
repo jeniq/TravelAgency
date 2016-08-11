@@ -24,12 +24,14 @@ public class SetHotTourCommand implements Command {
 			throws ServletException, IOException {
 		int travelId = new Integer(request.getParameter(CommandConstants.TRAVEL_ID));
 		Tour tour = tourService.getTravel(travelId);
-		int discount = 0;
+		int discount;
 		boolean isHot = false;
 
-		if (request.getParameter(CommandConstants.BUTTON).equals(CommandConstants.SET_HOT)) {
+		if ((discount = new Integer(request.getParameter(CommandConstants.DISCOUNT))) != 0) {
 			isHot = true;
 			discount = new Integer(request.getParameter(CommandConstants.DISCOUNT));
+		}else{
+			discount = 0;
 		}
 		tourService.setHotTravel(tour, isHot, discount); // set or cancel
 															// discount
