@@ -43,7 +43,7 @@ public class Tour {
 	 * @param discount in percent
 	 */
 	public void setDiscountPrice(int discount) {
-		price = (int) (price * (1 - discount / 100.0));
+		price = (int) (price * (1 - discount / 100.));
 	}
 
 	public void setPrice(int price) {
@@ -52,12 +52,13 @@ public class Tour {
 
 	// This method return travel's price to primary state without discount
 	public void cancelDiscountPrice() {
-		price = price * 100 / (100 - discount);
+		price = getOriginPrice();
 		discount = 0;
+		isHot = false;
 	}
 	
 	public int getOriginPrice() {
-		return price * 100 / (100 - discount);
+		return (int) Math.ceil(price * 100. / (100 - discount));
 	}
 	
 	public int getId() {
