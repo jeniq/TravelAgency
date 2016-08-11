@@ -20,8 +20,6 @@ public interface CommandConstants {
 	String TRAVELS_LIST = "list";
 	String LOCALE = "locale";
 	String ORDER_LIST = "orderList";
-	String SET_HOT = "Set hot";
-	String BUTTON = "button";
 	String CUSTOMER_LIST = "customerList";
 	String CUSTOMER_ID = "customerId";
 	String LANG = "lang";

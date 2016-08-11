@@ -19,7 +19,7 @@
 			<p>
 				<cstm:userName name="${user.getName()}" surname="${user.getSurname()}" lang = "${lang}"/>,
 				<fmt:message key="order.label.yourTravel" bundle="${bundle}" />
-				<fmt:message key="${travel.getName() }" bundle="${bundle}" />,
+				<fmt:message key="${travel.getName() }" bundle="${bundle}" />
 			</p>
 			<p>
 				<fmt:message key="order.label.travelId" bundle="${bundle}" />
