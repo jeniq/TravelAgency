@@ -92,16 +92,10 @@
 		</table>
 
 		<c:if test="${user.getPermissions() eq 'agent' }">
-			<table id="adminPanel">
-				<tr>
-					<td></td><td></td>
-					<td>
-						<label>
-							<fmt:message key="travelList.label.adminPanel" bundle="${bundle}" />
-						</label>
-					</td>
-					<td></td><td></td>
-				</tr>
+		<div id="adminPanel">
+			<form action="./Controller">
+				<fmt:message key="travelList.label.adminPanel" bundle="${bundle}" />
+				<table>
 					<tr>
 						<td>
 							<label>
@@ -120,15 +114,15 @@
 							<input type="number" name="discount" value="0">%
 						</td>
 						<td>
-							<form action="./Controller">
-								<input type="hidden" name="command" value="SET_HOT" /> 
-								<input type="submit" name="button" 
-									value="<fmt:message key="travelList.button.setHot" bundle="${bundle}" />">
-								<input type="submit" name="button"
-									value="<fmt:message key="travelList.button.cancelHot" bundle="${bundle}" />">
-							</form>
+							<input type="hidden" name="command" value="SET_HOT" /> 
+							<input type="submit" name="button" 
+								value="<fmt:message key="travelList.button.setHot" bundle="${bundle}" />">
 						</td>
 					</tr>
+				</table>
+			</form>
+			<form action="./Controller">
+				<table>
 					<tr>
 						<td>
 							<label>
@@ -147,13 +141,12 @@
 							<input type="number" name="discount" value="0">%
 						</td>
 						<td>
-							<form action="./Controller">
-								<input type="hidden" name="command" value="SET_USER_DISCOUNT" /> 
-								<input type="submit" value="<fmt:message key="travelList.button.setDiscount" bundle="${bundle}" />">
-							</form>
+							<input type="hidden" name="command" value="SET_USER_DISCOUNT" /> 
+							<input type="submit" value="<fmt:message key="travelList.button.setDiscount" bundle="${bundle}" />">
 						</td>
 					</tr>
-			</table>
+				</table>
+			</form>
 
 			<a href="./Controller?command=FIND_ALL_CUSTOMERS">
 				<fmt:message key="travelList.label.customers" bundle="${bundle}" />
@@ -179,6 +172,7 @@
 				</c:forEach>
 				</table>
 			</c:if>
+		</div>
 		</c:if>
 	</body>
 </html>
