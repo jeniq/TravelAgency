@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/customTag.tld" prefix="cstm" %>
 
 <!DOCTYPE html>
 <html>
@@ -17,8 +18,7 @@
 	<body>
 		<div id="header">
 			<fmt:message key="travelList.label.welcome" bundle="${bundle}" />, 
-				<fmt:message key="${user.getName()}" bundle="${bundle}" />
-				<fmt:message key="${user.getSurname()}" bundle="${bundle}" />
+			<cstm:userName name="${user.getName()}" surname="${user.getSurname()}" lang = "${lang}"/>	
 			<c:if test="${user.getPermissions() eq 'user' }"> | 
 				<a href="./Controller?command=USER_ORDERS">
 					<fmt:message key="travelList.label.myOrders" bundle="${bundle}" />

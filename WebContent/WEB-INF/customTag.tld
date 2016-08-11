@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<taglib version="2.1" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
+	<tlib-version>1.0</tlib-version>
+	<short-name>customTag</short-name>
+	<uri>/WEB-INF/customTag</uri>
+	<tag>
+		<name>userName</name>
+		<tag-class>tag.UserNameTagHandler</tag-class>
+		<body-content>empty</body-content>
+		<info>userName tag contains user's name and surname</info>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<description>provide user's name</description>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>surname</name>
+			<required>true</required>
+			<description>provide user's surname</description>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>lang</name>
+			<required>true</required>
+			<description>provide language</description>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+</taglib>
