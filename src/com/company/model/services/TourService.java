@@ -38,11 +38,16 @@ public class TourService {
 			return false;
 		}
 		TourDao tourDao = factory.createTourDao();
+		
+		if (tourDao.find(tour.getId()).getIsHot() && isHot){ // forbid setting hot twice
+			return false;
+		}
 		if (isHot) {
 			tour.setDiscountPrice(discount);
 		} else {
 			tour.cancelDiscountPrice();
 		}
+
 		return tourDao.setHot(tour, isHot, discount);
 	}
 
