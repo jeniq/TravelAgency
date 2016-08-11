@@ -8,7 +8,7 @@
 <html>
 	<head>
 		<fmt:setLocale value="${lang}" />
-		<fmt:setBundle basename="localization/messages" var="bundle" />
+		<fmt:setBundle basename="com.company.localization/messages" var="bundle" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" type="text/css" href="styles/travelList.css">
 		<title>

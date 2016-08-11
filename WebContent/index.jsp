@@ -8,7 +8,7 @@
 	<head>
 		<c:set var="lang" value="${empty lang ? 'en_US' : lang}" scope="session" />
 		<fmt:setLocale value="${lang}" />
-		<fmt:setBundle basename="localization/messages" var="bundle" />
+		<fmt:setBundle basename="com.company.localization/messages" var="bundle" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" type="text/css" href="styles/index.css">
 		<title>

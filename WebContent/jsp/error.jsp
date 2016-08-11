@@ -6,7 +6,7 @@
 <html>
 <head>
 	<fmt:setLocale value="${lang}" />
-	<fmt:setBundle basename="localization/messages" var="bundle" />
+	<fmt:setBundle basename="com.company.localization/messages" var="bundle" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title><fmt:message key="error.label.title" bundle="${bundle}" /></title>
 </head>

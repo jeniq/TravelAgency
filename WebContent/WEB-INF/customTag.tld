@@ -8,7 +8,7 @@
 	<uri>/WEB-INF/customTag</uri>
 	<tag>
 		<name>userName</name>
-		<tag-class>tag.UserNameTagHandler</tag-class>
+		<tag-class>com.company.tag.UserNameTagHandler</tag-class>
 		<body-content>empty</body-content>
 		<info>userName tag contains user's name and surname</info>
 		<attribute>

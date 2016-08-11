@@ -17,7 +17,7 @@
   <filter>
     <display-name>EncodingFilter</display-name>
     <filter-name>EncodingFilter</filter-name>
-    <filter-class>filters.EncodingFilter</filter-class>
+    <filter-class>com.company.filters.EncodingFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>EncodingFilter</filter-name>
@@ -26,7 +26,7 @@
   <filter>
     <display-name>SessionFilter</display-name>
     <filter-name>SessionFilter</filter-name>
-    <filter-class>filters.SessionFilter</filter-class>
+    <filter-class>com.company.filters.SessionFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>SessionFilter</filter-name>
@@ -44,7 +44,7 @@
   <filter>
     <display-name>OrderFilter</display-name>
     <filter-name>OrderFilter</filter-name>
-    <filter-class>filters.OrderFilter</filter-class>
+    <filter-class>com.company.filters.OrderFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>OrderFilter</filter-name>
